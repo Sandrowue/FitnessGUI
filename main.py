@@ -1,9 +1,9 @@
 # MAIN WINDOW FOR FITNESS APPLICATION
 
 # Libraries and modules
-from PyQt6 import QtCore # Core functionality of Qt
-from PyQt6 import QtWidgets # UI elements functionality
-from PyQt6.uic.load_ui import loadUi
+from PyQt5 import QtCore # Core functionality of Qt
+from PyQt5 import QtWidgets # UI elements functionality
+from PyQt5.uic import loadUi
 import sys
 # Class for the main window
 class MainWindow(QtWidgets.QMainWindow):
@@ -13,7 +13,7 @@ class MainWindow(QtWidgets.QMainWindow):
         super().__init__()
     
         # Load the UI file
-        loadUi('Main.ui', self)
+        loadUi('main.ui', self)
 
         # Define UI Controls ie buttons and input fields
         self.lPB = self.laskePushButton
