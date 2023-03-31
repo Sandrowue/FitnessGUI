@@ -16,6 +16,8 @@ class MainWindow(QtWidgets.QMainWindow):
         loadUi('main.ui', self)
 
         # Define UI Controls ie buttons and input fields
+        self.heihtDSB = self.lengthDoubleSpinBox
+        self.weightDSB = self.weightDoubleSpinBox
         self.lPB = self.laskePushButton
         self.lPB.clicked.connect(self.calculateAll)
     # Define slots ie methods 
