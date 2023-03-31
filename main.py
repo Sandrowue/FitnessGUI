@@ -4,7 +4,7 @@
 import sys
 from PyQt5 import QtCore # Core functionality of Qt
 from PyQt5 import QtWidgets # UI elements functionality
-from PyQt5.uic import loadUi
+from PyQt5.uic import loadUi # reads the Ui file
 import kuntoilija
 import timetools
 # Class for the main window
