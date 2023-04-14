@@ -127,14 +127,14 @@
    <widget class="QLabel" name="kaulaLabel">
     <property name="geometry">
      <rect>
-      <x>330</x>
+      <x>310</x>
       <y>280</y>
-      <width>49</width>
-      <height>16</height>
+      <width>121</width>
+      <height>20</height>
      </rect>
     </property>
     <property name="text">
-     <string>Kaula</string>
+     <string>Kaula-ympärys cm</string>
     </property>
    </widget>
    <widget class="QLabel" name="rasvaprosentti_FI_label">
@@ -160,7 +160,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Paino</string>
+     <string>Paino kg</string>
     </property>
    </widget>
    <widget class="QLabel" name="birthLabel">
@@ -186,7 +186,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Pituus</string>
+     <string>Pituus cm</string>
     </property>
    </widget>
    <widget class="QLabel" name="weighingLabel">
@@ -309,14 +309,14 @@
    <widget class="QLabel" name="vyotaroLabel">
     <property name="geometry">
      <rect>
-      <x>440</x>
+      <x>418</x>
       <y>280</y>
-      <width>49</width>
-      <height>16</height>
+      <width>91</width>
+      <height>20</height>
      </rect>
     </property>
     <property name="text">
-     <string>Vyötärö</string>
+     <string>Vyötärö-ympärys cm</string>
     </property>
    </widget>
    <widget class="QLabel" name="lantioLabel">
@@ -324,12 +324,12 @@
      <rect>
       <x>520</x>
       <y>280</y>
-      <width>49</width>
+      <width>101</width>
       <height>16</height>
      </rect>
     </property>
     <property name="text">
-     <string>Lantio</string>
+     <string>Lantio-ympärys cm</string>
     </property>
    </widget>
    <widget class="QLabel" name="painoindexiLabel_2">

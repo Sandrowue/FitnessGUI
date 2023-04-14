@@ -28,10 +28,13 @@ class MainWindow(QtWidgets.QMainWindow):
         self.kaulaSB = self.kaulaSpinBox
         self.vuotaroSB = self.vyotaroSpinBox
         self.lantioSB = self.lantioSpinBox
+        
         self.lPB = self.laskePushButton
         self.lPB.clicked.connect(self.calculateAll)
+        
         self.savePB = self.savePushButton
         self.savePB.clicked.connect(self.saveData)
+        self.savePB.setEnabled(False)
         
       
     # Define slots ie methods 
@@ -41,6 +44,8 @@ class MainWindow(QtWidgets.QMainWindow):
         name = self.nameLE.text()
         heigt = self.heightDSB.value()
         weight = self.weightDSB.value()
+        self.lPB.setEnabled(False)
+        self.savePB.setEnabled(True)
         birthday = self.birthDE.date().toString(format=QtCore.Qt.ISODate) # Covert Birth day to ISO string using QtCores methods
         gender = self.genderCB.currentText() # Set Gender Value according to Combox value
         if gender == 'Mies':
