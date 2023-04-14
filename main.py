@@ -90,7 +90,7 @@ class MainWindow(QW.QMainWindow):
     
     def calculateAll(self):
         name = self.nameLE.text()
-        heigt = self.heightDSB.value()
+        height = self.heightDSB.value()
         weight = self.weightDSB.value()
         self.lPB.setEnabled(False)
         self.savePB.setEnabled(True)
@@ -102,10 +102,26 @@ class MainWindow(QW.QMainWindow):
             gender = 0
         date = self.wDE.date().toString(format=QtCore.Qt.ISODate) # Covert Weighing day to ISO string using QtCores methods
         age = timetools.datediff_choose_unit(birthday, date, 'year') # Calculate time difference using our home made tools
+        kaula = self.kaulaSB.value()
+        vyötärö = self.vuotaroSB.value()
+        lantio = self.lantioSB.value()
         
-        athlete = kuntoilija.Kuntoilija(name, heigt, weight, age, gender, date)
+        if age > 18:
+            athlete = kuntoilija.Kuntoilija(name, height, weight, age, gender, date)
+        else:
+            athlete = kuntoilija.JunioriKuntoilija(name, height, weight, age, gender)
         bmi = athlete.bmi
         self.painoindexiLabel_2.setText(str(bmi))
+        
+        finFatPercentage = athlete.rasvaprosentti()
+
+        if gender == 1:
+            usaFatPercentage = athlete.usa_rasvaprosentti_mies(height, vyötärö, kaula)
+        else:
+            usaFatPercentage = athlete.usa_rasvaprosentti_nainen(height, vyötärö, lantio, kaula)
+        
+        self.rasvaprosentti_FI_label_2.setText(str(finFatPercentage))
+        self.rasvaprosentti_USA_label_2.setText(str(usaFatPercentage))
 
     # Saves data to disk    
     def saveData(self):
