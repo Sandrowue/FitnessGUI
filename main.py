@@ -81,7 +81,7 @@ class MainWindow(QW.QMainWindow):
             if self.lantioSB.value() == 30:
                 self.lPB.setEnabled(False)
             else:
-                self.lPB.setEnabled(False)
+                self.lPB.setEnabled(True)
             
 
         
@@ -105,20 +105,22 @@ class MainWindow(QW.QMainWindow):
         kaula = self.kaulaSB.value()
         vyötärö = self.vuotaroSB.value()
         lantio = self.lantioSB.value()
+
+        athlete = kuntoilija.Kuntoilija(name, height, weight, age, gender, kaula, vyötärö, lantio, date)
         
-        if age > 18:
+        '''if age > 18:
             athlete = kuntoilija.Kuntoilija(name, height, weight, age, gender, date)
         else:
-            athlete = kuntoilija.JunioriKuntoilija(name, height, weight, age, gender)
+            athlete = kuntoilija.JunioriKuntoilija(name, height, weight, age, gender)'''
         bmi = athlete.bmi
         self.painoindexiLabel_2.setText(str(bmi))
         
-        finFatPercentage = athlete.rasvaprosentti()
-
-        if gender == 1:
+        finFatPercentage = athlete.fi_rasva
+        usaFatPercentage = athlete.usa_rasva
+        '''if gender == 1:
             usaFatPercentage = athlete.usa_rasvaprosentti_mies(height, vyötärö, kaula)
         else:
-            usaFatPercentage = athlete.usa_rasvaprosentti_nainen(height, vyötärö, lantio, kaula)
+            usaFatPercentage = athlete.usa_rasvaprosentti_nainen(height, vyötärö, lantio, kaula)'''
         
         self.rasvaprosentti_FI_label_2.setText(str(finFatPercentage))
         self.rasvaprosentti_USA_label_2.setText(str(usaFatPercentage))
