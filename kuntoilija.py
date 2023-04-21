@@ -9,23 +9,35 @@ class Kuntoilija:
     """Luokka kuntoilijan tietoja varten
     """
     # Olionmuodostin eli konstruktori
-    def __init__(self, nimi, pituus, paino, ika, sukupuoli, paiva):
+    def __init__(self, nimi, pituus, paino, ika, sukupuoli, kaula, vyotaro, lantio, paiva):
         # Määritellään tulevan olion ominaisuudet (property), luokan kentät (field)
         self.nimi = nimi
         self.pituus = pituus
         self.paino = paino
         self.ika = ika
         self.sukupuoli = sukupuoli
+        self.kaula = kaula
+        self.vyotaro = vyotaro
+        self.lantio = lantio
         self.bmi = fitness.laske_bmi(self.paino, self.pituus)
+        self.fi_rasva = self.rasvaprosentti()
+        if self.sukupuoli == 1:
+            self.usa_rasva = self.usa_rasvaprosentti_mies(self.pituus, self.vyotaro, self.kaula)
+        else:
+            self.usa_rasva = self.usa_rasvaprosentti_nainen(self.pituus, self.vyotaro, self.lantio, self.kaula)
         self.punnitus_paiva = paiva
 # Metodi painoindeksin laskemiseen
    
 
  # Metodi aikuisen rasvaprosentin laskemiseen
     def rasvaprosentti(self):
-     
-        self.rasvaprosentti = fitness.aikuisen_rasvaprosentti(self.bmi, self.ika, self.sukupuoli)
+        if self.ika >= 18:
+            self.rasvaprosentti = fitness.aikuisen_rasvaprosentti(self.bmi, self.ika, self.sukupuoli)
+            return self.rasvaprosentti
+        else:
+            self.rasvaprosentti = fitness.lapsen_rasvaprosentti(self.bmi, self.ika, self.sukupuoli)
         return self.rasvaprosentti
+
 
     def usa_rasvaprosentti_mies(self, pituus, vyotaron_ymparys, kaulan_ymparys):
         """Laskee miehen rasvaprosentin USAn armeijan kaavoilla
@@ -67,11 +79,16 @@ class JunioriKuntoilija(Kuntoilija):
         return self.rasvaprosentti
 
 if __name__ == "__main__":
+
+    kuntoilija = Kuntoilija('Mika', 171, 75, 60, 1, 30, 90, 0, '2023-04-21')
+    print('bmi on', kuntoilija.bmi)
+    print('suomalainen rasvaprosentti on:', kuntoilija.fi_rasva)
+    print('amerikkalainen rasvaprosentti on:', kuntoilija.usa_rasva)
     
-    kuntoilija = Kuntoilija('Kalle Kuntoilija', 171, 56, 18, 1)
+    '''kuntoilija = Kuntoilija('Kalle Kuntoilija', 171, 56, 18, 1)
     print(kuntoilija.nimi, 'painaa', kuntoilija.paino, 'kg')
     print(kuntoilija.nimi, 'painoindeksi on', kuntoilija.bmi)
     print(kuntoilija.nimi, 'rasvaprosentti on', kuntoilija.rasvaprosentti())
 
     juniorikuntoilija = JunioriKuntoilija('Aki', 171, 56, 17, 1)
-    print(juniorikuntoilija.nimi,'rasvaprosentti on', juniorikuntoilija.rasvaprosentti())
+    print(juniorikuntoilija.nimi,'rasvaprosentti on', juniorikuntoilija.rasvaprosentti())'''
