@@ -9,7 +9,7 @@ class ProcessJsonFile():
     def __init__(self):
         pass
     
-   
+    
 
     def saveData(self, file, data):
         """Saves all athlete data to disk
@@ -21,6 +21,8 @@ class ProcessJsonFile():
         Returns:
             tuple: Error code, Error message, detailed error message
         """
+        with open(file, 'w') as fileToWrite:
+            json.dump(data, fileToWrite, indent=2)
         status = (0, 'Tallennus onnistunut', 'All data saved successfully')
         return status
     
@@ -33,10 +35,14 @@ class ProcessJsonFile():
         Returns:
             tupple: Error code, Error message, detailed error message, data
         """
-        data = (0, message, detailedMessage, readInfo)
+        with open(file, 'r') as fileToRead:
+            athlete_data = json.load(fileToRead)
+            message = 'OK'
+            detailedMessage = 'Data read successfully from disk'
+            data = (0, message, detailedMessage, athlete_data)
         return data
 
-    def appendDate(self, file, data):
+    def appendData(self, file, data):
         """Adds a new json object to the file
 
         Args:
