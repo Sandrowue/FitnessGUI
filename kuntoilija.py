@@ -29,7 +29,7 @@ class Kuntoilija:
 # Metodi painoindeksin laskemiseen
    
 
- # Metodi aikuisen rasvaprosentin laskemiseen
+ # Metodi aikuisen rasvaprosentin laskemiseen:
     def rasvaprosentti(self):
         if self.ika >= 18:
             self.rasvaprosentti = fitness.aikuisen_rasvaprosentti(self.bmi, self.ika, self.sukupuoli)
