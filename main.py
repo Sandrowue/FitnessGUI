@@ -6,6 +6,7 @@ from PyQt5 import QtCore # Core functionality of Qt
 from PyQt5 import QtWidgets as QW # UI elements functionality
 from PyQt5.uic import loadUi # reads the Ui file
 import kuntoilija
+import athleteFile
 import timetools
 # Class for the main window
 class MainWindow(QW.QMainWindow):
@@ -57,7 +58,18 @@ class MainWindow(QW.QMainWindow):
         self.savePB.clicked.connect(self.saveData)
         self.savePB.setEnabled(False)
         
-      
+        # Read data from file and save it to a list
+        self.dataList = []
+        jsonFile = athleteFile.ProcessJsonFile()
+        try:
+            data = jsonFile.readData('athleteData.json')
+            self.dataList = data[3]
+        except Exception as e:
+            data = (1, 'Error', str(e), self.dataList)
+           
+        
+
+
     # Define slots ie methods 
 
     def activateCalculatePB(self):
@@ -125,14 +137,20 @@ class MainWindow(QW.QMainWindow):
         self.rasvaprosentti_FI_label_2.setText(str(finFatPercentage))
         self.rasvaprosentti_USA_label_2.setText(str(usaFatPercentage))
 
-    def constructData(self, athlete, fiFat, usaFat):
+        self.dataRow = self.constructData(athlete)
+        print(self.dataRow)
+
+    def constructData(self, athlete,):
         athlete_data_row = {'nimi': athlete.nimi, 'pituus': athlete.pituus, 'paino': athlete.paino, 'ika': athlete.ika, 'sukupuoli': athlete.sukupuoli,
-                    'pvm': athlete.punnitus_paiva, 'bmi': athlete.bmi, 'rasvaprosenttiFi': fiFat, 'rasvaprosenttiUs': usaFat}
+                    'pvm': athlete.punnitus_paiva, 'bmi': athlete.bmi, 'rasvaprosenttiFi': athlete.fi_rasva, 'rasvaprosenttiUs': athlete.usa_rasva}
         return athlete_data_row
         
     # Saves data to disk    
     def saveData(self):
-        pass  
+        self.dataList.append(self.dataRow)  
+        jsonFile2 = athleteFile.ProcessJsonFile()
+        status = jsonFile2.saveData('athleteData.json', self.dataList)
+        print(status)
 
 if __name__ == "__main__":
     
