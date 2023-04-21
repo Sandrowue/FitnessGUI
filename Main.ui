@@ -66,7 +66,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Rasvaprosentti (FI)</string>
+     <string>0</string>
     </property>
    </widget>
    <widget class="QSpinBox" name="kaulaSpinBox">
@@ -251,7 +251,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Rasvaprosentti (USA)</string>
+     <string>0</string>
     </property>
    </widget>
    <widget class="QComboBox" name="genderComboBox">
@@ -342,7 +342,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Painoindeksi</string>
+     <string>0</string>
     </property>
    </widget>
    <widget class="QSpinBox" name="vyotaroSpinBox">

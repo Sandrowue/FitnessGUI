@@ -123,6 +123,11 @@ class MainWindow(QW.QMainWindow):
         self.rasvaprosentti_FI_label_2.setText(str(finFatPercentage))
         self.rasvaprosentti_USA_label_2.setText(str(usaFatPercentage))
 
+    def constructData(self, athlete, fiFat, usaFat):
+        athlete_data_row = {'nimi': athlete.nimi, 'pituus': athlete.pituus, 'paino': athlete.paino, 'ika': athlete.ika, 'sukupuoli': athlete.sukupuoli,
+                    'pvm': athlete.punnitus_paiva, 'bmi': athlete.bmi, 'rasvaprosenttiFi': fiFat, 'rasvaprosenttiUs': usaFat}
+        return athlete_data_row
+        
     # Saves data to disk    
     def saveData(self):
         pass  
