@@ -1,0 +1,24 @@
+[
+  {
+    "nimi": "Sandro",
+    "pituus": 178.0,
+    "paino": 70.0,
+    "ika": 44.57534246575342,
+    "sukupuoli": 1,
+    "pvm": "2023-04-21",
+    "bmi": 22.09,
+    "rasvaprosenttiFi": 20.6,
+    "rasvaprosenttiUs": 25.61
+  },
+  {
+    "nimi": "Raisa",
+    "pituus": 166.0,
+    "paino": 75.0,
+    "ika": 43.33150684931507,
+    "sukupuoli": 0,
+    "pvm": "2023-04-21",
+    "bmi": 27.22,
+    "rasvaprosenttiFi": 37.2,
+    "rasvaprosenttiUs": 32.89
+  }
+]
