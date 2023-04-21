@@ -150,7 +150,16 @@ class MainWindow(QW.QMainWindow):
         self.dataList.append(self.dataRow)  
         jsonFile2 = athleteFile.ProcessJsonFile()
         status = jsonFile2.saveData('athleteData.json', self.dataList)
+        self.nameLE.clear()
+        zeroDate = QtCore.QDate(1980, 1, 1)
+        self.birthDE.setDate(zeroDate)
         print(status)
+        self.heightDSB.setValue(50)
+        self.weightDSB.setValue(20)
+        self.kaulaSB.setValue(10)
+        self.vuotaroSB.setValue(30)
+        self.lantioSB.setValue(30)
+        self.savePB.setEnabled(False)
 
 if __name__ == "__main__":
     

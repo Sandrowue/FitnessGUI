@@ -20,5 +20,16 @@
     "bmi": 27.22,
     "rasvaprosenttiFi": 37.2,
     "rasvaprosenttiUs": 32.89
+  },
+  {
+    "nimi": "Leena",
+    "pituus": 180.0,
+    "paino": 72.0,
+    "ika": 43.33150684931507,
+    "sukupuoli": 0,
+    "pvm": "2023-04-21",
+    "bmi": 22.22,
+    "rasvaprosenttiFi": 31.2,
+    "rasvaprosenttiUs": 28.5
   }
 ]
