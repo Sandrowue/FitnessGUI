@@ -77,14 +77,16 @@ def timediff_choose_unit(t1, t2, unit):
     
 if __name__ == "__main__":
     # Let's test date difference
-    date1 = '2023-03-21'
-    date2 = '2023-03-17'
+    #date1 = '2023-03-21'
+    #date2 = '2023-03-17'
 
-    ero = datediff_choose_unit(date1, date2,'day')
-    print('ero oli', ero ,'päivää')
+    #ero = datediff_choose_unit(date1, date2,'day')
+    #print('ero oli', ero ,'päivää')
 
     # Let's test time difference
-    time1 = '10:00:00'
-    time2 = '15:25:00'
-    ero = timediff_choose_unit(time1, time2, 'minute')
-    print('ero oli', ero, 'minuuttia')
+    #time1 = '10:00:00'
+    #time2 = '15:25:00'
+    #ero = timediff_choose_unit(time1, time2, 'minute')
+    #print('ero oli', ero, 'minuuttia')
+
+    print(round(timediff('10:10:05', '11:30:15'), 4))
