@@ -38,6 +38,23 @@ def datediff_choose_unit(d1, d2, unit):
     value = difference / divider
     return value
 
+def dateTimeDiff(start, end):
+    """Returns difference in hours between two moments
+
+    Args:
+        v1 (str): date time value in format YYYY-MM-dd hh:mm:ss
+        v2 (str): date time value in format YYYY-MM-dd hh:mm:ss
+
+    Returns:
+        float: difference in hours
+    """
+    v1 = datetime.datetime.strptime(start, "%Y-%m-%d %H:%M:%S")
+    v2 = datetime.datetime.strptime(end, "%Y-%m-%d %H:%M:%S")
+    difference = v2 - v1
+    seconds = difference.total_seconds()
+    hours = seconds / 3600
+    return hours
+
 
 def timediff(t1, t2):
     """Calculates the difference between time values in hours
@@ -53,6 +70,29 @@ def timediff(t1, t2):
     t1 = datetime.datetime.strptime(t1, "%H:%M:%S")
     t2 = datetime.datetime.strptime(t2, "%H:%M:%S")
     seconds = abs((t2 - t1).seconds)
+    hours = seconds / 3600 # minute = 60 seconds, hour 60 minutes
+    return hours
+
+def timediff_no_overnight(t1, t2):
+    """Calculates the difference between time values in hours
+
+    Args:
+        t1 (str): time value in format hh:mm:ss
+        t2 (str): time value in format hh:mm:ss
+
+    Returns:
+        float: time difference in hours
+    """
+    # Fucnction calculates a timedelta which supports only seconds or microseconds
+    t1 = datetime.datetime.strptime(t1, "%H:%M:%S")
+    t2 = datetime.datetime.strptime(t2, "%H:%M:%S")
+
+    if t2 > t1:
+        seconds = abs((t2 - t1).seconds)
+       
+    else:
+        seconds = abs((t1 - t2).seconds)
+
     hours = seconds / 3600 # minute = 60 seconds, hour 60 minutes
     return hours
 
@@ -89,4 +129,6 @@ if __name__ == "__main__":
     #ero = timediff_choose_unit(time1, time2, 'minute')
     #print('ero oli', ero, 'minuuttia')
 
-    print(round(timediff('10:10:05', '11:30:15'), 4))
+    #print(round(timediff('10:10:05', '11:30:15'), 4))
+
+    print(dateTimeDiff('2023-04-28 10:00:00', '2023-04-29 11:00:00'), 'tuntia')
