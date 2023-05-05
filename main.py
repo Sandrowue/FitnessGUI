@@ -48,11 +48,17 @@ class MainWindow(QW.QMainWindow):
         self.lantioSB.setEnabled(False)
         self.lantioSB.valueChanged.connect(self.activateCalculatePB)
         
+        #Create a status bar for showing informational messages
+        self.statusBar = QW.QStatusBar()
+        self.setStatusBar(self.statusBar)
+        self.statusBar.show()
+
         '''self.lPB = self.laskePushButton'''
         self.lPB = self.findChild(QW.QPushButton, 'laskePushButton')
         self.lPB.clicked.connect(self.calculateAll)
         self.lPB.setEnabled(False)
 
+      
         '''self.savePB = self.savePushButton'''
         self.savePB = self.findChild(QW.QPushButton, 'savePushButton')
         self.savePB.clicked.connect(self.saveData)
@@ -71,6 +77,50 @@ class MainWindow(QW.QMainWindow):
 
 
     # Define slots ie methods 
+
+    # Create a alerting method
+    def alert(self, windowTitle, message, detailedMessage):
+        msgBox = QW.QMessageBox()
+        msgBox.setIcon(QW.QMessageBox.Critical)
+        msgBox.setWindowTitle(windowTitle)
+        msgBox.setText(message)
+        msgBox.setDetailedText(detailedMessage)
+        msgBox.exec()
+
+    def warn(self, windowTitle, message, detailedMessage):
+        msgBox = QW.QMessageBox()
+        msgBox.setIcon(QW.QMessageBox.Warning)
+        msgBox.setWindowTitle(windowTitle)
+        msgBox.setText(message)
+        msgBox.setDetailedText(detailedMessage)
+        msgBox.exec()
+
+    def inform(self, windowTitle, message, detailedMessage):
+        msgBox = QW.QMessageBox()
+        msgBox.setIcon(QW.QMessageBox.Information)
+        msgBox.setWindowTitle(windowTitle)
+        msgBox.setText(message)
+        msgBox.setDetailedText(detailedMessage)
+        msgBox.exec()
+
+    def showMessageBox(self, windowTitle, message, detailedMessage, icon='Information'):
+        """Creates a message box for various types of messages
+
+        Args:
+            windowTitle (str): Header for the message window
+            message (str): Message to be shown
+            detailedMessage (str): A message that con be shown by pressing details button
+            icon (str, optional): Defaults to 'Information'. Allowed values: 
+            NoIcon, Information, Question, Warning and Critical
+        """
+        iconTypes = {'Information': QW.QMessageBox.Information, 'NoIcon': QW.QMessageBox.NoIcon, 'Question': QW.QMessageBox.Question, 
+         'Warning': QW.QMessageBox.Warning, 'Critical': QW.QMessageBox.critical}
+        msgBox = QW.QMessageBox()
+        msgBox.setIcon(iconTypes[icon])
+        msgBox.setWindowTitle(windowTitle)
+        msgBox.setText(message)
+        msgBox.setDetailedText(detailedMessage)
+        msgBox.exec()
 
     def activateCalculatePB(self):
         self.lPB.setEnabled(True)
@@ -115,6 +165,8 @@ class MainWindow(QW.QMainWindow):
         date = self.wDE.date().toString(format=QtCore.Qt.ISODate) # Covert Weighing day to ISO string using QtCores methods
         age = timetools.datediff_choose_unit(birthday, date, 'year') # Calculate time difference using our home made tools
         kaula = self.kaulaSB.value()
+        if kaula < 15:
+            self.alert('Tarkista kaulan ympäryys', 'Kaulan ymärys liian pieni', 'Kaulan koko voi olla enemmän kuin 15cm')
         vyötärö = self.vuotaroSB.value()
         lantio = self.lantioSB.value()
 
@@ -150,22 +202,27 @@ class MainWindow(QW.QMainWindow):
         self.dataList.append(self.dataRow)  
         jsonFile2 = athleteFile.ProcessJsonFile()
         status = jsonFile2.saveData('athleteData.json', self.dataList)
-        self.nameLE.clear()
-        zeroDate = QtCore.QDate(1980, 1, 1)
-        self.birthDE.setDate(zeroDate)
-        print(status)
-        self.heightDSB.setValue(50)
-        self.weightDSB.setValue(20)
-        self.kaulaSB.setValue(10)
-        self.vuotaroSB.setValue(30)
-        self.lantioSB.setValue(30)
-        self.savePB.setEnabled(False)
+        self.statusBar.showMessage(status[1], 4000) # Show message about status of saving on statusbar
+        if status[0] != 0:
+            self.alert(status[1], status[2])
+        else:
+            self.nameLE.clear()
+            zeroDate = QtCore.QDate(1980, 1, 1)
+            self.birthDE.setDate(zeroDate)
+            print(status)
+            self.heightDSB.setValue(50)
+            self.weightDSB.setValue(20)
+            self.kaulaSB.setValue(10)
+            self.vuotaroSB.setValue(30)
+            self.lantioSB.setValue(30)
+            self.savePB.setEnabled(False)
 
 if __name__ == "__main__":
     
     
     # Create the application
     app = QW.QApplication(sys.argv)
+    app.setStyle('Fusion')
     
     # Create the mainwindow (and show it)
     appWindow = MainWindow()

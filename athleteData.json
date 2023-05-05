@@ -31,5 +31,27 @@
     "bmi": 22.22,
     "rasvaprosenttiFi": 31.2,
     "rasvaprosenttiUs": 28.5
+  },
+  {
+    "nimi": "Verner App",
+    "pituus": 170.0,
+    "paino": 69.0,
+    "ika": 42.827397260273976,
+    "sukupuoli": 1,
+    "pvm": "2023-05-05",
+    "bmi": 23.88,
+    "rasvaprosenttiFi": 22.3,
+    "rasvaprosenttiUs": 25.74
+  },
+  {
+    "nimi": "Thomas Smith",
+    "pituus": 170.0,
+    "paino": 80.0,
+    "ika": 43.36986301369863,
+    "sukupuoli": 1,
+    "pvm": "2023-05-05",
+    "bmi": 27.68,
+    "rasvaprosenttiFi": 27.0,
+    "rasvaprosenttiUs": 20.2
   }
 ]

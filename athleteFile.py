@@ -21,9 +21,12 @@ class ProcessJsonFile():
         Returns:
             tuple: Error code, Error message, detailed error message
         """
-        with open(file, 'w') as fileToWrite:
-            json.dump(data, fileToWrite, indent=2)
-        status = (0, 'Tallennus onnistunut', 'All data saved successfully')
+        try:
+            with open(file, 'w') as fileToWrite:
+                json.dump(data, fileToWrite, indent=2)
+            status = (0, 'Tallennus onnistunut', 'All data saved successfully')
+        except Exception as error:
+            status = (1, 'Tallennus ei onnistunut', str(error))
         return status
     
     def readData(self, file):
