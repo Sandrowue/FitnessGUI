@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1133</width>
+    <width>1072</width>
     <height>887</height>
    </rect>
   </property>
@@ -387,18 +387,85 @@
      <string>Painoindexi</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="testPushButton">
+    <property name="geometry">
+     <rect>
+      <x>450</x>
+      <y>412</y>
+      <width>75</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Test</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1133</width>
+     <width>1072</width>
      <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuTiedosto">
+    <property name="title">
+     <string>Tiedosto</string>
+    </property>
+    <addaction name="actionTulosta"/>
+    <addaction name="actionSulje"/>
+   </widget>
+   <widget class="QMenu" name="menuMuokkaa">
+    <property name="title">
+     <string>Muokkaa</string>
+    </property>
+    <addaction name="actionPalauta_oletukset"/>
+   </widget>
+   <widget class="QMenu" name="menuOhjeet">
+    <property name="title">
+     <string>Ohjeet</string>
+    </property>
+    <addaction name="actionAvaa_Ohjeet"/>
+   </widget>
+   <widget class="QMenu" name="menuAsetukset">
+    <property name="title">
+     <string>Asetukset</string>
+    </property>
+   </widget>
+   <addaction name="menuTiedosto"/>
+   <addaction name="menuMuokkaa"/>
+   <addaction name="menuOhjeet"/>
+   <addaction name="menuAsetukset"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionTulosta">
+   <property name="text">
+    <string>Tulosta</string>
+   </property>
+  </action>
+  <action name="actionSulje">
+   <property name="text">
+    <string>Sulje</string>
+   </property>
+  </action>
+  <action name="actionPalauta_oletukset">
+   <property name="text">
+    <string>Palauta oletukset</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+D</string>
+   </property>
+  </action>
+  <action name="actionAvaa_Ohjeet">
+   <property name="text">
+    <string>Avaa Ohjeet</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+H</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>

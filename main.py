@@ -8,6 +8,7 @@ from PyQt5.uic import loadUi # reads the Ui file
 import kuntoilija
 import athleteFile
 import timetools
+import ohjeDialog
 # Class for the main window
 class MainWindow(QW.QMainWindow):
     
@@ -58,6 +59,8 @@ class MainWindow(QW.QMainWindow):
         self.lPB.clicked.connect(self.calculateAll)
         self.lPB.setEnabled(False)
 
+        self.testPB = self.testPushButton
+        self.testPB.clicked.connect(self.insertTestValues)
       
         '''self.savePB = self.savePushButton'''
         self.savePB = self.findChild(QW.QPushButton, 'savePushButton')
@@ -73,7 +76,11 @@ class MainWindow(QW.QMainWindow):
         except Exception as e:
             data = (1, 'Error', str(e), self.dataList)
            
-        
+        # Menu Actions
+        self.actionPalauta_oletukset.triggered.connect(self.restoreDefaults)
+        self.actionAvaa_Ohjeet.triggered.connect(self.openHelpDialog)
+
+
 
 
     # Define slots ie methods 
@@ -149,7 +156,17 @@ class MainWindow(QW.QMainWindow):
         
     
     # Calculates BMI, FI and USA fat percentages and updates corresponding labels
-    
+    def insertTestValues(self):
+        self.nameLE.setText('Teppo Testi')
+        testbirthDate = QtCore.QDate(1980, 1, 1)
+        self.birthDE.setDate(testbirthDate)
+        self.genderCB.setCurrentText('Mies')
+        self.heightDSB.setValue(178)
+        self.weightDSB.setValue(70)
+        self.kaulaSB.setValue(30)
+        self.vuotaroSB.setValue(90)
+        
+
     def calculateAll(self):
         name = self.nameLE.text()
         height = self.heightDSB.value()
@@ -166,7 +183,8 @@ class MainWindow(QW.QMainWindow):
         age = timetools.datediff_choose_unit(birthday, date, 'year') # Calculate time difference using our home made tools
         kaula = self.kaulaSB.value()
         if kaula < 15:
-            self.alert('Tarkista kaulan ympäryys', 'Kaulan ymärys liian pieni', 'Kaulan koko voi olla enemmän kuin 15cm')
+            #self.alert('Tarkista kaulan ympäryys', 'Kaulan ymärys liian pieni', 'Kaulan koko pitää olla enemmän kuin 15cm')
+            self.showMessageBox('Tarkista kaulan ympärys', 'Kaulan ympärys liian pieni', 'Kaulan koko pitää alla enemmän kuin 15cm', 'Warning')
         vyötärö = self.vuotaroSB.value()
         lantio = self.lantioSB.value()
 
@@ -206,16 +224,22 @@ class MainWindow(QW.QMainWindow):
         if status[0] != 0:
             self.alert(status[1], status[2])
         else:
-            self.nameLE.clear()
-            zeroDate = QtCore.QDate(1980, 1, 1)
-            self.birthDE.setDate(zeroDate)
-            print(status)
-            self.heightDSB.setValue(50)
-            self.weightDSB.setValue(20)
-            self.kaulaSB.setValue(10)
-            self.vuotaroSB.setValue(30)
-            self.lantioSB.setValue(30)
-            self.savePB.setEnabled(False)
+            self.restoreDefaults
+
+    def restoreDefaults(self):
+        self.nameLE.clear()
+        zeroDate = QtCore.QDate(1980, 1, 1)
+        self.birthDE.setDate(zeroDate)
+        self.heightDSB.setValue(50)
+        self.weightDSB.setValue(20)
+        self.kaulaSB.setValue(10)
+        self.vuotaroSB.setValue(30)
+        self.lantioSB.setValue(30)
+        self.savePB.setEnabled(False)
+
+    def openHelpDialog(self):
+        openHelp = ohjeDialog.OpenHelp()
+        openHelp.exec()
 
 if __name__ == "__main__":
     
