@@ -9,6 +9,7 @@ import kuntoilija
 import athleteFile
 import timetools
 import ohjeDialog
+import Kuntoilija_mainwindow
 # Class for the main window
 class MainWindow(QW.QMainWindow):
     
@@ -20,11 +21,11 @@ class MainWindow(QW.QMainWindow):
         loadUi('main.ui', self)
 
         # Define UI Controls ie buttons and input fields
-        self.heightDSB = self.lengthDoubleSpinBox
-        self.heightDSB.valueChanged.connect(self.activateCalculatePB)
+        self.heightVS = self.lengthVerticalSlider
+        self.heightVS.valueChanged.connect(self.activateCalculatePB)
         
-        self.weightDSB = self.weightDoubleSpinBox
-        self.weightDSB.valueChanged.connect(self.activateCalculatePB)
+        self.weightD = self.weightDial
+        self.weightD.valueChanged.connect(self.activateCalculatePB)
 
         '''self.nameLE = self.nameLineEdit'''
         self.nameLE = self.findChild(QW.QLineEdit, 'nameLineEdit')
@@ -39,16 +40,18 @@ class MainWindow(QW.QMainWindow):
         self.wDE = self.weighingDateEdit
         self.wDE.setDate(QtCore.QDate.currentDate()) # Set the weighing date to the current date
         
-        self.kaulaSB = self.kaulaSpinBox
-        self.kaulaSB.valueChanged.connect(self.activateCalculatePB)
+        self.kaulaHS = self.kaulaHorizontalSlider
+        self.kaulaHS.valueChanged.connect(self.activateCalculatePB)
 
-        self.vuotaroSB = self.vyotaroSpinBox
-        self.vuotaroSB.valueChanged.connect(self.activateCalculatePB)
+        self.vuotaroHS = self.vyutaroHorizontalSlider
+        self.vuotaroHS.valueChanged.connect(self.activateCalculatePB)
 
-        self.lantioSB = self.lantioSpinBox
-        self.lantioSB.setEnabled(False)
-        self.lantioSB.valueChanged.connect(self.activateCalculatePB)
+        self.lantioHS = self.lantioHorizontalSlider
+        self.lantioHS.setEnabled(False)
+        self.lantioHS.valueChanged.connect(self.activateCalculatePB)
         
+        self.dimensionBox = self.frame
+
         #Create a status bar for showing informational messages
         self.statusBar = QW.QStatusBar()
         self.setStatusBar(self.statusBar)
@@ -137,20 +140,26 @@ class MainWindow(QW.QMainWindow):
             self.lPB.setEnabled(False)'''
         if self.genderCB.currentText() == '':
             self.lPB.setEnabled(False)
-        if self.heightDSB.value() == 50:
+        if self.heightVS.value() == 50:
             self.lPB.setEnabled(False)
-        if self.weightDSB.value() == 20:
+        if self.weightD.value() == 20:
             self.lPB.setEnabled(False)
-        if self.kaulaSB.value() == 10:
+        if self.kaulaHS.value() == 10:
             self.lPB.setEnabled(False)
-        if self.vuotaroSB.value() == 30:
+        if self.vuotaroHS.value() == 30:
             self.lPB.setEnabled(False)
         if self.genderCB.currentText() == 'Nainen':
-            self.lantioSB.setEnabled(True)
-            if self.lantioSB.value() == 30:
+            self.lantioLabel.show()
+            self.lantioHS.setEnabled(True)
+            self.lantioHS.show()
+            self.dimensionBox.setStyleSheet("background-image: url(NaisSlice_original.png)")
+            if self.lantioHS.value() == 30:
                 self.lPB.setEnabled(False)
-            else:
-                self.lPB.setEnabled(True)
+        else:
+            self.lPB.setEnabled(True)
+            self.lantioHS.hide()
+            self.lantioLabel.hide()
+            self.dimensionBox.setStyleSheet("background-image: url(MiesSlice.png)")
             
 
         
@@ -161,16 +170,16 @@ class MainWindow(QW.QMainWindow):
         testbirthDate = QtCore.QDate(1980, 1, 1)
         self.birthDE.setDate(testbirthDate)
         self.genderCB.setCurrentText('Mies')
-        self.heightDSB.setValue(178)
-        self.weightDSB.setValue(70)
-        self.kaulaSB.setValue(30)
-        self.vuotaroSB.setValue(90)
+        self.heightVS.setValue(178)
+        self.weightD.setValue(70)
+        self.kaulaHS.setValue(30)
+        self.vuotaroHS.setValue(90)
         
 
     def calculateAll(self):
         name = self.nameLE.text()
-        height = self.heightDSB.value()
-        weight = self.weightDSB.value()
+        height = self.heightVS.value()
+        weight = self.weightD.value()
         self.lPB.setEnabled(False)
         self.savePB.setEnabled(True)
         birthday = self.birthDE.date().toString(format=QtCore.Qt.ISODate) # Covert Birth day to ISO string using QtCores methods
@@ -181,12 +190,12 @@ class MainWindow(QW.QMainWindow):
             gender = 0
         date = self.wDE.date().toString(format=QtCore.Qt.ISODate) # Covert Weighing day to ISO string using QtCores methods
         age = timetools.datediff_choose_unit(birthday, date, 'year') # Calculate time difference using our home made tools
-        kaula = self.kaulaSB.value()
+        kaula = self.kaulaHS.value()
         if kaula < 15:
             #self.alert('Tarkista kaulan ympäryys', 'Kaulan ymärys liian pieni', 'Kaulan koko pitää olla enemmän kuin 15cm')
             self.showMessageBox('Tarkista kaulan ympärys', 'Kaulan ympärys liian pieni', 'Kaulan koko pitää alla enemmän kuin 15cm', 'Warning')
-        vyötärö = self.vuotaroSB.value()
-        lantio = self.lantioSB.value()
+        vyötärö = self.vuotaroHS.value()
+        lantio = self.lantioHS.value()
 
         athlete = kuntoilija.Kuntoilija(name, height, weight, age, gender, kaula, vyötärö, lantio, date)
         
@@ -230,11 +239,11 @@ class MainWindow(QW.QMainWindow):
         self.nameLE.clear()
         zeroDate = QtCore.QDate(1980, 1, 1)
         self.birthDE.setDate(zeroDate)
-        self.heightDSB.setValue(50)
-        self.weightDSB.setValue(20)
-        self.kaulaSB.setValue(10)
-        self.vuotaroSB.setValue(30)
-        self.lantioSB.setValue(30)
+        self.heightVS.setValue(50)
+        self.weightD.setValue(20)
+        self.kaulaHS.setValue(10)
+        self.vuotaroHS.setValue(30)
+        self.lantioHS.setValue(30)
         self.savePB.setEnabled(False)
 
     def openHelpDialog(self):
